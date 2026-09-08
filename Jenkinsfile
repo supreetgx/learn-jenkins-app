@@ -21,6 +21,7 @@ pipeline {
                 sh '''
                 echo 'Hello Goswami'
                 echo `npm --version`
+                npm ci
                 npm run build
                 '''
             }
