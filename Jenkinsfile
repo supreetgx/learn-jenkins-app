@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Step 1') {
+        stage('Step 1: Dummy') {
             steps {
                 sh '''
                 echo 'Hello Supreet'
@@ -10,7 +10,7 @@ pipeline {
                 '''
             }
         }
-        stage('Step 2') {
+        stage('Step 2: Build') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -19,10 +19,22 @@ pipeline {
             }
             steps {
                 sh '''
-                echo 'Hello Goswami'
                 echo `npm --version`
                 npm ci
                 npm run build
+                '''
+            }
+        }
+        stage('Step 3: Test') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                npm test
                 '''
             }
         }
