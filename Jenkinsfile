@@ -14,12 +14,14 @@ pipeline {
             agent {
                 docker {
                     image 'node:18-alpine'
+                    reuseNode true
                 }
             }
             steps {
                 sh '''
                 echo 'Hello Goswami'
                 echo `npm --version`
+                npm run build
                 '''
             }
         }
