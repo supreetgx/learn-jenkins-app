@@ -34,7 +34,7 @@ pipeline {
             }
             steps {
                 sh '''
-                if (file -f build/index.html)
+                if [-f build/index.html]
                 then
                     echo "index.html exists"
                 else
